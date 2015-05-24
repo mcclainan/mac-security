@@ -40,7 +40,7 @@ grails.views.default.codec = "html"
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
-
+grails.sitemesh.default.layout = 'global.gsp'
 // GSP settings
 grails {
     views {
@@ -57,6 +57,18 @@ grails {
         // escapes all not-encoded output at final stage of outputting
         // filteringCodecForContentType.'text/html' = 'html'
     }
+}
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "mac.secrutiy@gmail.com"
+        password = "Respect*admin2love"
+        props = ["mail.smtp.auth":"true",
+                 "mail.smtp.socketFactory.port":"465",
+                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback":"false"]   }
 }
 
 
@@ -91,7 +103,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://www.macsuite.org"
     }
 }
 
@@ -121,6 +133,7 @@ log4j.main = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.macsuite.security.UserData'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.macsuite.security.UserDataRole'
 grails.plugin.springsecurity.authority.className = 'org.macsuite.security.Role'
+grails.plugin.springsecurity.logout.postOnly=false
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
