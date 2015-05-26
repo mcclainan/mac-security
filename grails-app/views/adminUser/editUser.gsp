@@ -79,7 +79,7 @@
                                 <g:hiddenField name="id" value="${command.id}"/>
                                 <li><g:submitButton class="button" name="${message(code: 'adminUser.editUser.submit')}" /></li>
                                 <li><g:link action="" class="button">Edit Roles</g:link></li>
-                                <li><g:link action="changePassword" class="button alt">Change Password</g:link></li>
+                                <li><g:link action="editPassword" id="${command.id}" class="button alt">Change Password</g:link></li>
                                 <li><g:link action="deleteUser" class="button alt" id="${command?.id}" onClick="return confirm('${message(code: 'adminUser.index.confirm.delete',args: [command?.username], default: 'Are you sure?')}');">Delete</g:link></li>
                                 <li><g:link action="index" class="button alt">Admin Home</g:link></li>
                             </ul>

@@ -6,6 +6,7 @@ import org.macsuite.security.UserData
 import org.macsuite.security.UserDataRole
 import org.macsuite.security.command.admin.CreateUserCommand
 import org.macsuite.security.command.admin.EditUserCommand
+import org.macsuite.security.command.admin.UpdatePasswordCommand
 
 @Secured(['ROLE_ADMIN'])
 class AdminUserController {
@@ -61,10 +62,18 @@ class AdminUserController {
     }
 
     def editPassword(){
-
+        [command: new UpdatePasswordCommand(id:params.id.toLong())]
     }
 
-    def updatePassword(){
-
+    def updatePassword(UpdatePasswordCommand command){
+        if(command.hasErrors()){
+            render view: 'editPassword', model: [command:command]
+            return
+        }
+        UserData user = UserData.get(params.id)
+        user.password = command.password
+        user.save(flush: true)
+        flash.message="Passowrd for  ${user.username} has been updated."
+        redirect action:'index'
     }
 }
