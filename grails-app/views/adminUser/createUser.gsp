@@ -20,33 +20,43 @@
                 <header>
                     <h3><g:message code="adminUser.createUser.header"/></h3>
                 </header>
-                <g:form action="updateUser">
+                <g:form action="saveUser">
                     <g:render template="/templates/messageBlock"/>
                     <div class="row half">
                         <div class="6u">
-                            <label for="username"><g:message code="editUserCommand.username.label"/></label>
-                            <g:textField class="text" type="text" name="username" id="username" value="${command?.username}" placeholder="${message(code: 'editUserCommand.username.label')}" />
+                            <label for="username"><g:message code="createUserCommand.username.label"/></label>
+                            <g:textField class="text" type="text" name="username" id="username" value="${command?.username}" placeholder="${message(code: 'createUserCommand.username.label')}" />
                         </div>
                         <div class="6u">
-                            <label for="email"><g:message code="editUserCommand.email.label"/></label>
-                            <g:textField class="text" type="text" name="email" id="email" value="${command?.email}" placeholder="${message(code: 'editUserCommand.email.label')}" />
+                            <label for="email"><g:message code="createUserCommand.email.label"/></label>
+                            <g:textField class="text" type="text" name="email" id="email" value="${command?.email}" placeholder="${message(code: 'createUserCommand.email.label')}" />
+                        </div>
+                    </div>
+                    <div class="row half">
+                        <div class="6u">
+                            <label for="password"><g:message code="createUserCommand.password.label"/></label>
+                            <g:passwordField class="text" name="password" id="password" value="${command?.password}" placeholder="${message(code: 'createUserCommand.password.label')}" />
+                        </div>
+                        <div class="6u">
+                            <label for="confirmPassword"><g:message code="createUserCommand.confirmPassword.label"/></label>
+                            <g:passwordField class="text" name="confirmPassword" id="confirmPassword" value="${command?.confirmPassword}" placeholder="${message(code: 'createUserCommand.confirmPassword.label')}" />
                         </div>
                     </div>
                     <div class="row half">
 
                         <div class="6u">
-                            <label for="firstName"><g:message code="editUserCommand.firstName.label"/></label>
-                            <g:textField class="text" type="text" name="firstName" id="firstName" value="${command?.firstName}" placeholder="${message(code: 'editUserCommand.firstName.label')}" />
+                            <label for="firstName"><g:message code="createUserCommand.firstName.label"/></label>
+                            <g:textField class="text" type="text" name="firstName" id="firstName" value="${command?.firstName}" placeholder="${message(code: 'createUserCommand.firstName.label')}" />
                         </div>
                         <div class="6u">
-                            <label for="lastName"><g:message code="editUserCommand.lastName.label"/></label>
-                            <g:textField class="text" type="text" name="lastName" id="lastName" value="${command?.lastName}" placeholder="${message(code: 'editUserCommand.lastName.label')}" />
+                            <label for="lastName"><g:message code="createUserCommand.lastName.label"/></label>
+                            <g:textField class="text" type="text" name="lastName" id="lastName" value="${command?.lastName}" placeholder="${message(code: 'createUserCommand.lastName.label')}" />
                         </div>
                     </div>
                     <div class="row half">
                         <div class="6u">
-                            <label for="nicName"><g:message code="editUserCommand.nicName.label"/></label>
-                            <g:textField class="text" type="text" name="nicName" id="nicName" value="${command?.nicName}" placeholder="${message(code: 'editUserCommand.nicName.label')}" />
+                            <label for="nicName"><g:message code="createUserCommand.nicName.label"/></label>
+                            <g:textField class="text" type="text" name="nicName" id="nicName" value="${command?.nicName}" placeholder="${message(code: 'createUserCommand.nicName.label')}" />
                         </div>
                         <div class="6u">
 
@@ -54,34 +64,15 @@
                     </div>
                     <div class="row half">
                         <div class="6u">
-                            <g:checkBox name="passwordExpired" id="passwordExpired" checked="${command?.passwordExpired}"/>
-                            <g:message code="editUserCommand.passwordExpired.label"/>
+                            <label for="role">Role</label>
+                            <g:select name="role" from="${roleList}" optionKey="id" optionValue="authority"/>
                         </div>
-                    </div>
-                    <div class="row half">
-                        <div class="6u">
-                            <g:checkBox name="accountLocked" id="accountLocked" checked="${command?.accountLocked}"/>
-                            <g:message code="editUserCommand.accountLocked.label"/>
-                        </div>
-                    </div>
-                    <div class="row half">
-                        <br/>
-                        <h4>Roles</h4>
-                        <ul class="default">
-                            <g:each in="${command.roles}" var="role">
-                                <li>${role.authority}</li>
-                            </g:each>
-                        </ul>
                     </div>
                     <div class="row">
                         <div class="12u">
                             <ul class="actions">
-                                <g:hiddenField name="id" value="${command.id}"/>
-                                <li><g:submitButton class="button" name="${message(code: 'adminUser.editUser.submit')}" /></li>
-                                <li><g:link action="" class="button">Edit Roles</g:link></li>
-                                <li><g:link action="changePassword" class="button alt">Change Password</g:link></li>
-                                <li><g:link action="deleteUser" class="button alt" id="${command?.id}" onClick="return confirm('${message(code: 'adminUser.index.confirm.delete',args: [command?.username], default: 'Are you sure?')}');">Delete</g:link></li>
-                                <li><g:link action="index" class="button alt">Admin Home</g:link></li>
+                                <li><g:submitButton class="button" name="${message(code: 'adminUser.createUser.submit')}" /></li>
+                                <li><g:link action="index" class="button alt" onClick="return confirm('${message(code: 'adminUser.createUser.confirm.cancel', default: 'Are you sure?')}');">Admin Home</g:link></li>
                             </ul>
                         </div>
                     </div>
