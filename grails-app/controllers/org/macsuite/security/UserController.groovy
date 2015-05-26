@@ -2,15 +2,16 @@ package org.macsuite.security
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import org.macsuite.security.command.command.ChangeForgotPasswordCommand
 import org.macsuite.security.command.command.ChangePasswordCommand
 import org.macsuite.security.command.command.EditProfileCommand
-import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.crypto.password.PasswordEncoder
+import org.macsuite.security.command.command.ForgotPasswordCommand
 
 @Secured(['IS_AUTHENTICATED_FULLY'])
 class UserController {
     def msg
     SpringSecurityService springSecurityService
+    ForgotEmailService forgotEmailService
 
     def index() {
         redirect(controller: 'home')
@@ -52,5 +53,47 @@ class UserController {
         user.password = command.newPassword
         user.save(flush: true)
         redirect(uri:'/')
+    }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def forgotPassword(){
+
+    }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def sendEmail(ForgotPasswordCommand command){
+        if(command.hasErrors()){
+            render view: 'forgotPassword', model: [command:command]
+            return
+        }
+        if(!forgotEmailService.sendEmail(command.email)){
+            msg=message(code: 'user.sendEmail.noAccount',args: [email])
+            render view: 'forgotPassword', model: [command:command,msg:msg]
+            return
+        }
+        [email:command.email]
+    }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def changeForgotPassword(){
+        String token = params.id 
+        def reslut = forgotEmailService.validateToken(token)
+        if(result instanceof String){
+            return render view: 'invalidToken', model:[reason:reslut]
+        }
+        UserData user = UserData.findByEmail(result.email)
+        [command: new ChangeForgotPasswordCommand(UserData.findByEmail(reslut.email))]
+    }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def updateForgotPassword(ChangeForgotPasswordCommand command){
+        if(command.hasErrors()){
+            render view: 'changeForgotPassword', model: [command:command]
+            return
+        }
+        UserData user = UserData.get(command.id)
+        user.password=command.newPassword
+        user.save(flush: true)
+        redirect uri:'/'
     }
 }

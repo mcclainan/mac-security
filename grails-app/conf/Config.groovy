@@ -59,18 +59,33 @@ grails {
     }
 }
 
-grails {
-    mail {
-        host = "smtp.gmail.com"
-        port = 465
-        username = "mac.secrutiy@gmail.com"
-        password = "Respect*admin2love"
-        props = ["mail.smtp.auth":"true",
-                 "mail.smtp.socketFactory.port":"465",
-                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                 "mail.smtp.socketFactory.fallback":"false"]   }
-}
 
+environments {
+    development {
+        grails.logging.jul.usebridge = true
+        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+    }
+    test{
+        grails.logging.jul.usebridge = true
+        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+    }
+    production {
+        grails.logging.jul.usebridge = false
+        grails.serverURL = "http://www.macsuite.org"
+        grails {
+            mail {
+                host = "smtp.gmail.com"
+                port = 465
+                username = "mac.secrutiy@gmail.com"
+                password = "Respect*admin2love"
+                props = ["mail.smtp.auth":"true",
+                         "mail.smtp.socketFactory.port":"465",
+                         "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                         "mail.smtp.socketFactory.fallback":"false"]   }
+        }
+
+    }
+}
 
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
@@ -96,16 +111,6 @@ grails.hibernate.cache.queries = false
 grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
-
-environments {
-    development {
-        grails.logging.jul.usebridge = true
-    }
-    production {
-        grails.logging.jul.usebridge = false
-        grails.serverURL = "http://www.macsuite.org"
-    }
-}
 
 // log4j configuration
 log4j.main = {

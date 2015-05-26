@@ -63,6 +63,10 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:1.9.6"
         compile ":spring-security-core:2.0-RC4"
         compile ":mail:1.0.7"
+        if(Environment.current == Environment.DEVELOPMENT || Environment.current == Environment.TEST){
+            compile ":console:1.5.4"
+            compile ":greenmail:1.3.4"
+        }
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.5.5" // or ":hibernate:3.6.10.17"
