@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title><g:message code="adminUser.index.title"/></title>
+    <title><g:message code="adminRole.index.title"/></title>
 </head>
 
 <body>
@@ -18,31 +18,28 @@
         <div class="container">
             <section>
                 <header>
-                    <g:link action="createUser" class="button"><g:message code="adminUser.index.create.button"/></g:link>
-                    <g:link controller="adminRole" class="button"><g:message code="adminUser.index.adminRole.link"/></g:link>
-                    <g:link uri="/" class="button">Home</g:link>
+                    <g:link action="createUser" class="button"><g:message code="adminRole.index.create.button"/></g:link>
+                    <g:link controller="adminUser" class="button">Admin Home</g:link>
                     <br/><br/>
-                    <h3><g:message code="adminUser.index.header"/> </h3>
+                    <h3><g:message code="adminRole.index.header"/> </h3>
                 </header>
                 <div class="table-wrapper">
                     <table class="default">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>First Name</th>
+                                <th>Authority</th>
+                                <th>Add/Remove Users</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <g:each in="${userList}" var="user">
+                            <g:each in="${roleList}" var="role">
                                 <tr>
                                     <td>
-                                        <g:link action="editUser" id="${user.id}">
-                                            ${user.username}
-                                        </g:link>
+                                        ${role.authority.replace('ROLE_','')}
                                     </td>
-                                    <td>${user.email}</td>
-                                    <td>${user.firstName}</td>
+                                    <td><g:link action="" id="${role.id}"><g:message code="adminRole.index.edit.button"/></g:link> </td>
+                                    <td><g:link action="" id="${role.id}"><g:message code="adminRole.index.delete.button"/></g:link></td>
                                 </tr>
                             </g:each>
                         </tbody>
