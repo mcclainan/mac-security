@@ -30,30 +30,30 @@
     <div class="content dark style2">
         <div class="container">
             <div class="row">
-                <div class="6u">
+                <div class="10u">
                     <section>
                         <h3>Profile</h3>
                         <div class="table-wrapper">
                             <table class="default">
                                 <tbody>
                                 <tr>
-                                    <td>Username</td>
+                                    <td>Username:</td>
                                     <td>${user.username}</td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td>
+                                    <td>Email:</td>
                                     <td>${user.email}</td>
                                 </tr>
                                 <tr>
-                                    <td>First Name</td>
+                                    <td>First Name:</td>
                                     <td>${user.firstName}</td>
                                 </tr>
                                 <tr>
-                                    <td>Last Name</td>
+                                    <td>Last Name:</td>
                                     <td>${user.lastName}</td>
                                 </tr>
                                 <tr>
-                                    <td>Nicname</td>
+                                    <td>Nicname:</td>
                                     <td>${user.nicName}</td>
                                 </tr>
                                 </tbody>
@@ -61,10 +61,11 @@
                         </div>
                             <g:link controller="user" action="editProfile" id="${user.id}" class="button">Edit Profile</g:link>
                             <g:link controller="user" action="changePassword" class="button">Change Password</g:link>
+                            <sec:ifAnyGranted roles="ROLE_ADMIN">
+                                <g:link controller="adminUser" class="button">Admin Home</g:link>
+                            </sec:ifAnyGranted>
                         </footer>
                     </section>
-                </div>
-                <div class="8u">
                 </div>
             </div>
         </div>

@@ -4,12 +4,12 @@ class UserData {
 
 	transient springSecurityService
 
-	String username
-	String password
-	String email
-	String firstName
-	String lastName
-	String nicName
+	String  username
+	String  password
+	String  email
+	String  firstName
+	String  lastName
+	String  nicName
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked

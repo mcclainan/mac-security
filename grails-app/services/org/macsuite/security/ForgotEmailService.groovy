@@ -2,9 +2,6 @@ package org.macsuite.security
 
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
-import org.macsuite.security.ForgotPasswordSession
-import org.macsuite.security.UserData
-import org.macsuite.security.command.command.ForgotPasswordCommand
 import org.macsuite.security.org.macsuite.security.email.EmailService
 
 @Transactional
@@ -29,7 +26,7 @@ class ForgotEmailService {
         if(fpsession){
             Date date
             use(TimeCategory){
-                date = new Date - 2.hour
+                date = new Date() - 2.hour
             }
             if(fpsession.dateCreated<date){
                 return 'expired'

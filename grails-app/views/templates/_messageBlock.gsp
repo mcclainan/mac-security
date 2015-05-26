@@ -8,3 +8,8 @@
         <li>${msg}</li>
     </ul>
 </g:if>
+<g:if test="${flash.message}">
+    <ul>
+        <li>${flash.message}</li>
+    </ul>
+</g:if>

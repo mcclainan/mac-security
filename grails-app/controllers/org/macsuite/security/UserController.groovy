@@ -2,10 +2,10 @@ package org.macsuite.security
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
-import org.macsuite.security.command.command.ChangeForgotPasswordCommand
-import org.macsuite.security.command.command.ChangePasswordCommand
-import org.macsuite.security.command.command.EditProfileCommand
-import org.macsuite.security.command.command.ForgotPasswordCommand
+import org.macsuite.security.command.ChangeForgotPasswordCommand
+import org.macsuite.security.command.ChangePasswordCommand
+import org.macsuite.security.command.EditProfileCommand
+import org.macsuite.security.command.ForgotPasswordCommand
 
 @Secured(['IS_AUTHENTICATED_FULLY'])
 class UserController {
@@ -77,12 +77,13 @@ class UserController {
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def changeForgotPassword(){
         String token = params.id 
-        def reslut = forgotEmailService.validateToken(token)
+        def result = forgotEmailService.validateToken(token)
         if(result instanceof String){
-            return render view: 'invalidToken', model:[reason:reslut]
+            render view: 'invalidToken', model:[reason:reslut]
+            return
         }
         UserData user = UserData.findByEmail(result.email)
-        [command: new ChangeForgotPasswordCommand(UserData.findByEmail(reslut.email))]
+        [command: new ChangeForgotPasswordCommand(UserData.findByEmail(result.email))]
     }
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])

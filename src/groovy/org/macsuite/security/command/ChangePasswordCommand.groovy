@@ -1,4 +1,4 @@
-package org.macsuite.security.command.command
+package org.macsuite.security.command
 
 import grails.validation.Validateable
 

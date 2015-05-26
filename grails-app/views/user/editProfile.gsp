@@ -18,7 +18,7 @@
     <div class="content dark style2">
         <div class="container">
             <div class="row">
-                <div class="6u">
+                <div class="10u">
                     <section>
                         <header>
                             <h3>Profile Edit</h3>
@@ -49,15 +49,14 @@
                             <div class="row">
                                 <div class="12u">
                                     <ul class="actions">
-                                        <li><g:submitButton name="Edit Profile" class="button"/></li>
+                                        <li><g:submitButton name="Update Profile" class="button"/></li>
                                         <li><g:link action="changePassword" class="button">Change Password</g:link></li>
+                                        <li><g:link uri="/" class="button">Return Home</g:link></li>
                                     </ul>
                                 </div>
                             </div>
                         </g:form>
                     </section>
-                </div>
-                <div class="8u">
                 </div>
             </div>
         </div>
