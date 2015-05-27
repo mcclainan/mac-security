@@ -1,3 +1,4 @@
+import grails.util.Environment
 import org.macsuite.security.Role
 import org.macsuite.security.UserData
 import org.macsuite.security.UserDataRole
@@ -5,6 +6,18 @@ import org.macsuite.security.UserDataRole
 class BootStrap {
 
     def init = { servletContext ->
+        switch (Environment.current){
+            case Environment.DEVELOPMENT:
+                createAdmin()
+                createUser()
+                break
+            case Environment.TEST:
+                createAdmin()
+                break
+            case Environment.PRODUCTION:
+                createAdmin()
+                break
+        }
         createAdmin()
     }
 
@@ -14,8 +27,11 @@ class BootStrap {
         if(!user.authorities.contains(adminRole)){
             UserDataRole.create(user,adminRole,true)
         }
+    }
+
+    def createUser(){
         def userRole = Role.findByAuthority('ROLE_USER')?:new Role(authority:'ROLE_USER').save(failOnError:true)
-        user = UserData.findByUsername('standard')?:new UserData(username:'standard',firstName: "Standard", lastName: 'User', email: 'email@gmail.com', enabled:true,password:'password').save(failOnError:true)
+        def user = UserData.findByUsername('standard')?:new UserData(username:'standard',firstName: "Standard", lastName: 'User', email: 'email@gmail.com', enabled:true,password:'password').save(failOnError:true)
         if(!user.authorities.contains(userRole)){
             UserDataRole.create(user,userRole,true)
         }

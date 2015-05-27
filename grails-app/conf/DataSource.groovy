@@ -24,14 +24,24 @@ environments {
     }
     test {
         dataSource {
+            pooled = true
             dbCreate = "update"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            url = "jdbc:mysql://localhost:3306/APP_DB"
+            driverClassName = "com.mysql.jdbc.Driver"
+            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            username = "secret"
+            password = "secret"
         }
     }
     production {
         dataSource {
+            pooled = true
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            url = "jdbc:mysql://appdb.chggzbpqqzdo.us-west-2.rds.amazonaws.com:3306/mac_sec"
+            driverClassName = "com.mysql.jdbc.Driver"
+            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            username = "secret"
+            password = "secret"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true
