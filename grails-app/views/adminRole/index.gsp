@@ -18,18 +18,17 @@
         <div class="container">
             <section>
                 <header>
-                    <g:link action="createUser" class="button"><g:message code="adminRole.index.create.button"/></g:link>
+                    <g:link action="createRole" class="button"><g:message code="adminRole.index.create.button"/></g:link>
                     <g:link controller="adminUser" class="button">Admin Home</g:link>
                     <br/><br/>
                     <h3><g:message code="adminRole.index.header"/> </h3>
                 </header>
-                <div class="table-wrapper">
+                <div class="row half">
                     <table class="default">
                         <thead>
                             <tr>
                                 <th>Authority</th>
                                 <th>Add/Remove Users</th>
-                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,8 +37,7 @@
                                     <td>
                                         ${role.authority.replace('ROLE_','')}
                                     </td>
-                                    <td><g:link action="" id="${role.id}"><g:message code="adminRole.index.edit.button"/></g:link> </td>
-                                    <td><g:link action="" id="${role.id}"><g:message code="adminRole.index.delete.button"/></g:link></td>
+                                    <td><g:link action="editRole" id="${role.id}"><g:message code="adminRole.index.edit.button"/></g:link> </td>
                                 </tr>
                             </g:each>
                         </tbody>
