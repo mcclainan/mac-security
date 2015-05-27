@@ -24,7 +24,7 @@
                         <h3><g:message code="adminRole.editRole.heading" args="[role.authority]"/></h3>
                         <div class="table-wrapper">
                             <g:if test="${usersInRole}">
-                                <h3>User In Role</h3>
+                                <h3>Users In Role</h3>
                             </g:if>
                             <g:else>
                                 <th>No Users In Role</th>
@@ -49,7 +49,7 @@
                             </table>
                             <br/><br/><br/>
                             <g:if test="${usersNotInRole}">
-                                <th>Users Not In Role</th>
+                                <h3>Users Not In Role</h3>
                             </g:if>
                             <g:else>
                                 <th>All users have this role</th>
@@ -73,7 +73,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        <g:link action="index" class="button">Done</g:link>
+                        <footer>
+                            <g:link action="index" class="button">Done</g:link>
+                        </footer>
                     </section>
                 </div>
             </div>

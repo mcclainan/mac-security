@@ -66,11 +66,18 @@
                     </div>
                     <div class="row half">
                         <br/>
-                        <h4>Roles</h4>
-                        <ul class="default">
-                            <g:each in="${command.roles}" var="role">
-                                <li>${role.authority}</li>
-                            </g:each>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr><th><h4>Roles</h4></th></tr>
+                                </thead>
+                                <tbody>
+                                    <g:each in="${command.roles}" var="role">
+                                        <tr><td>${role.authority}</td></tr>
+                                    </g:each>
+                                </tbody>
+                            </table>
+                        </div>
                         </ul>
                     </div>
                     <div class="row">

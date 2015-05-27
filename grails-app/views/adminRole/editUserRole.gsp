@@ -71,7 +71,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        <g:link controller="adminUser" action="editUser" id="${user.id}"  class="button">Finished Editing Roles</g:link>
+                        <footer>
+                            <g:link controller="adminUser" action="editUser" id="${user.id}"  class="button">Finished Editing Roles</g:link>
+                        </footer>
                     </section>
                 </div>
             </div>

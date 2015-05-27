@@ -29,8 +29,8 @@ environments {
             url = "jdbc:mysql://localhost:3306/APP_DB"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-            username = "secret"
-            password = "secret"
+            username = "root"
+            password = "Good>root<strong"
         }
     }
     production {
@@ -40,8 +40,8 @@ environments {
             url = "jdbc:mysql://appdb.chggzbpqqzdo.us-west-2.rds.amazonaws.com:3306/mac_sec"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-            username = "secret"
-            password = "secret"
+            username = "tony"
+            password = "Application>database"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true
