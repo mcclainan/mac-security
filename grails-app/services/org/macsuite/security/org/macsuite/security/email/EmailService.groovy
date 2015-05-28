@@ -15,7 +15,7 @@ class EmailService {
         sendMail{
             to email
             subject 'Continue Mac Security email recovery'
-            html([view:"/template/email/forgotPassword", model:[registrationLink:registrationLink]])
+            html([view:"/templates/email/forgotPassword", model:[registrationLink:registrationLink]])
         }
     }
 

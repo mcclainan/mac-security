@@ -11,9 +11,15 @@ class ForgotEmailService {
         UserData user = UserData.findByEmail(email)
         if(user){
             String token = UUID.randomUUID().toString()
-            ForgotPasswordSession fpSession = new ForgotPasswordSession(token: token, uuid: user.id, email: email)
+
+            ForgotPasswordSession fpSession = ForgotPasswordSession.findByUuid(user.id)
+            if(fpSession){
+                fpSession.delete(flush: true)
+            }
+
+            fpSession = new ForgotPasswordSession(token: token, uuid: user.id, email: email)
             fpSession.save(flush:true)
-            sendEmail(email, token)
+            emailService.forgotPasswordContinue(email, token)
             return true
         }
         else{

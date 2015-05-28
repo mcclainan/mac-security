@@ -59,31 +59,37 @@ grails {
     }
 }
 
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "mac.secrutiy@gmail.com"
+        password = "rockmacsecurity"
+        props = ["mail.smtp.auth":"true",
+                 "mail.smtp.socketFactory.port":"465",
+                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback":"false"]
+    }
+}
+
 
 environments {
     development {
         grails.logging.jul.usebridge = true
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+        grails.serverBase = "http://localhost:8080"
+        grails.serverURL = "${grails.serverBase}/${appName}"
     }
     test{
         grails.logging.jul.usebridge = true
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+        grails.serverBase = "http://localhost:8080"
+        grails.serverURL = "${grails.serverBase}/${appName}"
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://www.macsuite.org"
-        grails {
-            mail {
-                host = "smtp.gmail.com"
-                port = 465
-                username = "mac.secrutiy@gmail.com"
-                password = "Respect*admin2love"
-                props = ["mail.smtp.auth":"true",
-                         "mail.smtp.socketFactory.port":"465",
-                         "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                         "mail.smtp.socketFactory.fallback":"false"]   }
-        }
-
+        grails.serverBase = "http://www.macsuite.org"
+        grails.serverURL = "${grails.serverBase}/${appName}"
     }
 }
 
@@ -113,12 +119,42 @@ grails.hibernate.pass.readonly = false
 grails.hibernate.osiv.readonly = false
 
 // log4j configuration
+// log4j configuration
+if (System.properties['catalina.base']) {
+    app.logFile = System.properties['catalina.base'] + "/logs/${appName}.log";
+}
+else {
+    app.logFile = "/tmp/${appName}.log";
+}
 log4j.main = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+        appender new org.apache.log4j.net.SyslogAppender(
+                name: 'systemLog',
+                threshold: org.apache.log4j.Level.WARN,
+                syslogHost: 'localhost',
+                facility: 'LOCAL0',
+                layout: pattern(conversionPattern: "[%d{ISO8601}] test : %-5p : %-40c{4} : %m%n")
+        )
+
+        appender new org.apache.log4j.RollingFileAppender(
+                name:'rollingLog',
+                threshold: org.apache.log4j.Level.INFO,
+                file: "${config.app.logFile}",
+                maxFileSize: '5MB',
+                maxBackupIndex: '5',
+                layout: pattern(conversionPattern: "[%d{ISO8601}] %-5p : %-40c{4} : %m%n")
+        )
+
+        appender new org.apache.log4j.ConsoleAppender(
+                name: 'stdout',
+                threshold: org.apache.log4j.Level.INFO,
+                target: 'System.out',
+                layout: pattern(conversionPattern: "[%d{ISO8601}] %-5p : %-40c{4} : %m%n")
+        )
+
+        // turns off the stacktrace log
+        'null' name: 'stacktrace'
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -144,6 +180,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/index':                         ['permitAll'],
 	'/index.gsp':                     ['permitAll'],
 	'/assets/**':                     ['permitAll'],
+	'/greenmail/**':                  ['permitAll'],
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],

@@ -18,7 +18,7 @@
     <div class="content dark style2">
         <div class="container">
             <div class="row">
-                <div class="6u">
+                <div class="12u">
                     <section>
                         <header>
                             <h3>Email Sent</h3>
